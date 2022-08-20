@@ -19,7 +19,7 @@ ipset -X samp_whitelist -!
 
 # Enable forward
 sysctl -w net.ipv4.ip_forward=1
-sudo iptables -t nat -A PREROUTING -p udp --dport 7771 -j DNAT --to-destination 54.39.131.118:7771
+iptables -t nat -A PREROUTING -p udp --dport 7777 -j DNAT --to-destination 45.134.11.133:7777
 iptables -t nat -A POSTROUTING -j MASQUERADE
 
 ### SA:MP Firewall ###

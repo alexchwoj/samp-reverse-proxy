@@ -71,6 +71,7 @@ def main():
 								timeout = 4
 							)
 							print(f'[Validator] Validated proxy {conn_address}, response: {req.json()}')
+						
 						except Exception as e:
 							print(f'[Error in validation] {e}')
 

@@ -6,19 +6,25 @@
 #include <a_samp>
 #include <a_http>
 
+#define REVERSEPROXY_SAFE
 #define REVERSEPROXY_DEBUG
 #define VALIDATOR_URL "loadbalancer.samp.valider.hyaxe.com:60422"
+
 static playerAddress[MAX_PLAYERS][16];
 
-stock GetPlayerRealIP(playerid, name[], len)
+stock GetPlayerRealIP(playerid, address[], len)
 {
-    format(name, len, playerAddress[playerid]);
+    format(address, len, playerAddress[playerid]);
     return 1;
 }
 
 public OnPlayerConnect(playerid)
 {
+    #if defined REVERSEPROXY_SAFE
+    GetPlayerIp(playerid, playerAddress[playerid]);
+    #else
     format(playerAddress[playerid], 16, "Loading...");
+    #endif
 
 	SetTimerEx("SendRequestToValidator", 5000, false, "i", playerid);
 
@@ -66,7 +72,11 @@ public OnPlayerGetIPAddress(index, response_code, data[])
 	{
 		if (data[0] == 'N')
 		{
+            #if defined REVERSEPROXY_SAFE
+            GetPlayerIp(index, playerAddress[index]);
+            #else
             format(playerAddress[index], 16, "Not Found");
+            #endif
         }
         else
         {
