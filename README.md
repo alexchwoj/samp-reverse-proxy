@@ -1,5 +1,5 @@
 # samp-reverse-proxy
-Load Balancing Node Control Software for San Andreas Multiplayer Servers
+Node Control Software for San Andreas Multiplayer Servers
 
 ```shell
 ### Clear rules ###
